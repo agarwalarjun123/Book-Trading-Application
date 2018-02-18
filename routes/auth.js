@@ -13,10 +13,10 @@ if(err)
 else
 {
 
+	
 	res.status(200);
-	res.setHeader('Content-type','application/json');
-	res.json(result);  
-
+	res.setHeader("Content-type","application/json");
+	res.json(result);
 	
 
 }

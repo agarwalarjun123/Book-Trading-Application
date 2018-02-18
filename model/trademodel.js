@@ -12,6 +12,10 @@ const tradeSchema=new Schema({
 	Book_id{
 		type:String,
 		required:true
+	},
+	Trade_date{
+		type:Date,
+		required:true
 	}
 });
 

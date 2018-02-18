@@ -1,0 +1,55 @@
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<div class="container">
+
+<h1>Hello <%= title %></h1>
+<h3>Points</h3>
+<h2 id="points"></h2>
+<div id="books"></div>
+
+</div>
+
+
+<script>
+$("#points").append(localStorage.points);
+var  send={"id":localStorage.id};
+
+$.ajax({
+url:"http://localhost:3000/getbook",
+data:JSON.stringify(send),
+type:"POST",
+dataType:"json",
+contentType:"application/json",
+async:false,
+success:function(data){
+console.log(data);
+
+//console.log(data[i].bookicon);
+for(var i=0;i<data.length;i++){
+
+$("#books").append("<div id='book"+i+"'></div>");
+$("#book"+i).css("margin","0px");
+
+$("#book"+i).addClass('col-md-4');
+$("#book"+i).addClass('');
+
+$("#book"+i).append("<h3>"+data[i].bookName+"</h3>");
+$("#book"+i).append("<img width='40%' src="+data[i].bookicon+">");
+$("#book"+i).append('<h4>'+data[i].bookAuthor+'</h4>');
+$("#book"+i).append(data[i].bookDesc);
+}
+
+
+},
+error:function(err){
+	console.log(send);
+	console.log(err.status);
+}
+});
+
+</script>
+<center><button>ADD+</button></center>
