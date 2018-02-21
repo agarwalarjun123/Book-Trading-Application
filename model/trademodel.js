@@ -1,19 +1,19 @@
 const mongoose=require('mongoose');
 const schema=mongoose.Schema;
-const tradeSchema=new Schema({
-	Ptrad_id1:{
+const tradeSchema=new schema({
+	owner:{
 	type:String,
 	required:true
 	},
-	Ptrade_id2:{
+	reciever:{
 		type:String,
 		required:true
 	},
-	Book_id{
+	Book_id:{
 		type:String,
 		required:true
 	},
-	Trade_date{
+	Trade_date:{
 		type:Date,
 		required:true
 	}

@@ -2,54 +2,46 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style >
+header{
+	background-color:rgb(200,200,200);
+	min-height:10%;
+}	
+body{
+font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+.book{
+	border-style:solid;
+}
+</style>
+
 </head>
 
-<div class="container">
+<header>
 
-<h1>Hello <%= title %></h1>
-<h3>Points</h3>
-<h2 id="points"></h2>
-<div id="books"></div>
+</header>
+<div>
+<div class='col-md-8 '>
+<h1 style='display:inline;'>Hello <%= name%>,</h1><br>
+<h1 style='display:inline;'>POINTS:<%= points%></h1>
 
 </div>
 
-
-<script>
-$("#points").append(localStorage.points);
-var  send={"id":localStorage.id};
-
-$.ajax({
-url:"http://localhost:3000/getbook",
-data:JSON.stringify(send),
-type:"POST",
-dataType:"json",
-contentType:"application/json",
-async:false,
-success:function(data){
-console.log(data);
-
-//console.log(data[i].bookicon);
-for(var i=0;i<data.length;i++){
-
-$("#books").append("<div id='book"+i+"'></div>");
-$("#book"+i).css("margin","0px");
-
-$("#book"+i).addClass('col-md-4');
-$("#book"+i).addClass('');
-
-$("#book"+i).append("<h3>"+data[i].bookName+"</h3>");
-$("#book"+i).append("<img width='40%' src="+data[i].bookicon+">");
-$("#book"+i).append('<h4>'+data[i].bookAuthor+'</h4>');
-$("#book"+i).append(data[i].bookDesc);
-}
+<div class='col-md-4'>
+<a href='/ask/<%= name %>' style='margin-top:20px;' class='btn btn-danger'>Ask for cards</a>
+</div>
+</div>
+<div>
+<% for(var i=0;i<bookrequest.length;i++){%>
+		<div class="book col-md-6">
+		<h3><%= bookrequest[i].bookName %> </h3>
+		<img  style='float:left;display:block;padding-bottom:5px;' src='<%= bookrequest[i].bookicon %>'>
+		<p><%= bookrequest[i].bookDesc %></p>
+		<a class='btn btn-primary' href='/book/<%= bookrequest[i]._id%>/<%= id%>/'  id='book<%= i%>'>Trade</a>
+		</div>
+<%}%>
+</div>
 
 
-},
-error:function(err){
-	console.log(send);
-	console.log(err.status);
-}
-});
 
-</script>
-<center><button>ADD+</button></center>
+

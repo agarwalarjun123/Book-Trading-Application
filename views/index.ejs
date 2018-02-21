@@ -8,50 +8,21 @@
 <div class="col-md-4"></div>
 <div class="col-md-4" id="login">
 <h1 class="text-center">Login</h1>
-<form  >
+<form action='/dashboard' method='POST'>
 <div class="form-group">
   <label>Username</label>
-  <input type="text " placeholder="username" class="form-control" id="user" >
+  <input type="text " placeholder="username" class="form-control" id="user" name='username' >
 </div>
   <div class="form-group">
     <label>Password</label>
-  <input type="password" class="form-control" placeholder="password" id="pass">
+  <input type="password" class="form-control" placeholder="password" id="pass" name='password'>
   </div>
   <div class="row"><div class="col-md-4"></div>
    <div class="col-md-4 text-center">
      <br><br>
-     <input type="submit" onclick="auth()"  class="btn">
+     <input type="submit"  class="btn">
   </div>
 
   </div>
 </form>
 </div>
-<script>
-
-function auth(){
-var user=document.getElementById("user").value;
-var pass=document.getElementById("pass").value;
-var i=0;
-var sent_Data=JSON.stringify({"username":user,"password":pass});
-$.ajax({
-url:"http://localhost:3000/auth/",
-type:"POST",
-data:sent_Data,
-contentType:"application/json",
-async:false,
-success:function(data){
-  console.log(data);
-  if(data.length==1){
-    localStorage.id=data[0]._id;
-   
-
-    localStorage.points=data[0].points;
-
-    
-    window.open("http://localhost:3000/dashboard/"+data[0].name);
- 
-  }
- }
-});
-}
-</script>

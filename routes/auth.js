@@ -14,10 +14,8 @@ else
 {
 
 	
-	res.status(200);
-	res.setHeader("Content-type","application/json");
-	res.json(result);
-	
+	res.status(200);	
+	res.redirect('/dashboard/'+result[0].name,result);
 
 }
 
