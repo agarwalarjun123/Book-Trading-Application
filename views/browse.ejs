@@ -1,7 +1,14 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway" rel="stylesheet"><style >
+<style>
+body{
+font-family: 'Raleway', sans-serif;
 
+}
+
+</style>
 
 <div class="row">
 <div class="col-md-2"></div>
@@ -11,7 +18,7 @@
 <label>Search</label>
 <input type="text" id="t1" class="form-control">
 </div>
-
+<input type='hidden' id='name' value='<%=name %>'>
 <div id="main">
 
 </div>
@@ -21,9 +28,11 @@
 <div class="col-md-2"></div>
 </div>
 <div class="text-center">
-<button id="search" class="btn">Search</button>
+<button id="search" style='margin-top:4px;' class="btn">Search</button>
 </div>
-<script src="browser.js">
+<script src='../public/browser.js'>
+
+
 </script>
 
 

@@ -7,6 +7,8 @@ const Auth=require('./model/usermodel');
 const books=require('./model/booksmodel');
 const cookieParser=require('cookie-parser');
 const trade=require('./model/trademodel');
+const book1=require('./routes/book');
+
 //const booksget=require('./routes/getbooks');
 const url="mongodb://localhost:27017/conFusion";
 mongoose.connect(url,(err,result)=>{
@@ -19,11 +21,12 @@ const app=express();
 app.disable('etag');
 app.set('views','./views');
 app.set('view engine','ejs');
-app.use(morgan('dev'));
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
+
+app.use(morgan('dev'));
+
 app.get('/login',function(req,res,next){
-
-
 res.render('index');
 });
 app.get('/book/:bookid/:userid',(req,res,next)=>{
@@ -42,6 +45,16 @@ res.redirect('/dashboard/'+result5[0].name);
 });
 });
 });
+app.post('/details/:name',function(req,res,next){
+Auth.find({name:req.params.name},(err,result)=>{
+books.create({bookName:req.body.title,bookDesc:req.body.description,
+bookAuthor:req.body.authors,
+bookicon:req.body.img,userId:result[0]._id,status:'requested'},(err,result1)=>{
+res.redirect('/dashboard/'+req.params.name);
+});
+});
+
+});
 app.post('/dashboard',function(req,res,next){
 Auth.find({"username":req.body.username,"password":req.body.password},(err,result)=>{
 if(result.length==1 ){
@@ -53,7 +66,6 @@ res.redirect('/login');
 });
 app.get('/dashboard/:name',(req,res,next)=>{
 Auth.find({name:req.params.name},(err,result)=>{
-
 books.find({$and:[{userId:{$ne:result[0]._id}},{"status":{$ne:"traded"}}]},(err,bookreq)=>{
 res.render('Dashboard',{
 	"name":result[0].name,
@@ -67,17 +79,20 @@ res.render('Dashboard',{
 
 });
 app.get('/ask/:name',(req,res,next)=>{
-res.render('browse.ejs',{"name":req.params.name});
+res.render('browse.ejs',{name:req.params.name});
 
 
 
 });
 
-
+app.get('/logout',function(req,res,next){
+res.redirect('/login');
+});
 
 app.get('/',function(req,res,next){
 res.redirect('/login');
 });
+app.use('/public',express.static(__dirname+'/public'));
 const server=http.createServer(app);
 server.listen(3000,'localhost',()=>{
 console.log("connected to localhost: 3000");

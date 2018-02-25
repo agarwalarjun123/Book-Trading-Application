@@ -2,33 +2,39 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway" rel="stylesheet">
 <style >
+
 header{
 	background-color:rgb(200,200,200);
 	min-height:10%;
+
 }	
 body{
-font-family: "Comic Sans MS", "Comic Sans", cursive;
+font-family: 'Raleway', sans-serif;
+
 }
 .book{
-	border-style:solid;
+	
+	border-radius: 6px;
+
 }
 </style>
 
 </head>
 
 <header>
-
+<a style='float:right;padding-top:20px;' href='/logout' class='btn'> LOGOUT</a>
 </header>
 <div>
-<div class='col-md-8 '>
+<div class='col-md-10 '>
 <h1 style='display:inline;'>Hello <%= name%>,</h1><br>
-<h1 style='display:inline;'>POINTS:<%= points%></h1>
+<h1 style='display:inline;'>Points:<%= points%></h1>
 
 </div>
 
-<div class='col-md-4'>
-<a href='/ask/<%= name %>' style='margin-top:20px;' class='btn btn-danger'>Ask for cards</a>
+<div class='col-md-2'>
+<a href='/ask/<%= name %>' style='margin-top:20px;' class='btn btn-danger'>Ask for Books</a>
 </div>
 </div>
 <div>
@@ -37,10 +43,13 @@ font-family: "Comic Sans MS", "Comic Sans", cursive;
 		<h3><%= bookrequest[i].bookName %> </h3>
 		<img  style='float:left;display:block;padding-bottom:5px;' src='<%= bookrequest[i].bookicon %>'>
 		<p><%= bookrequest[i].bookDesc %></p>
+		<span style='color:red;'>Request by <%= bookrequest[i].userId%></span><br>
+		
 		<a class='btn btn-primary' href='/book/<%= bookrequest[i]._id%>/<%= id%>/'  id='book<%= i%>'>Trade</a>
 		</div>
 <%}%>
 </div>
+
 
 
 

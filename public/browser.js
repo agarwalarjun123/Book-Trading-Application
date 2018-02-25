@@ -8,22 +8,55 @@ var i;
 for(i=0;i<8;i++){
 var cont=document.createElement("div");
 cont.id="s"+i;
-$("#s"+i).addClass("col-md-10");
-var bt=$("<button></button>").text("Add +");
 
-cont.style.display="inline";
-cont.style.padding="10px";
+var bt=$("<a class='links'></a>").text("Add +");
+$(bt).addClass("btn");
+$(bt).addClass("btn-danger");
+$(bt).css({"margin-top":"4px"});
+var hr=document.createElement("hr");
+cont.style.borderStyle='solid';
+cont.style.borderRadius='4px';
+cont.style.borderColor='lightblue';
+
+cont.style.backgroundColor='lightblue';
 $("#main").append(cont);
 var content=$("<p></p>").text(data.items[i].volumeInfo.description);
 var title=$("<h2></h2>").text(data.items[i].volumeInfo.title);
+var author=$("<h6></h6>").text(data.items[i].volumeInfo.authors[0]);
 var im=document.createElement("img");
+
 im.src=data.items[i].volumeInfo.imageLinks.smallThumbnail;
+im.style.display="block";
+im.style.margin="auto";
 $("#s"+i).append(title);
+$("#s"+i).append(author);
+
 $("#s"+i).append(im);
 $("#s"+i).append(content);
 $("#s"+i).append(bt);
+$("#s"+i).append(hr);
 
 }
+var name=document.getElementById("name").value;
+$(".links").click(function(){
+var Jstext={
+title:$(this).parent().find("h2").text(),
+description:$(this).parent().find("p").text(),
+img:$(this).parent().find("img").attr("src"),
+authors:$(this).parent().find("h6").text()
+};
+var u=JSON.stringify(Jstext);
+console.log(u);
+$.ajax({
+url:'/details/'+name,
+data:u,
+contentType:"application/json",
+type:"POST",
+success:function(data){
+	alert('book added');
+}
+});
+});
 }
 });
 });
