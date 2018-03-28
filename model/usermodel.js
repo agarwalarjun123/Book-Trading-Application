@@ -24,4 +24,3 @@ points:{
 });
 const usermodel=mongoose.model('auth',userschema);
 module.exports=usermodel;
-

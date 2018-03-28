@@ -3,54 +3,75 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway" rel="stylesheet">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <style >
-
-header{
+body{
+	background-color:
+}
+.header{
 	background-color:rgb(200,200,200);
-	min-height:10%;
+	min-height:20px;
 
-}	
+}
+table{
+	margin-top:5px;
+}
+td{
+	margin:10px;
+	padding:10px;
+}
+
 body{
 font-family: 'Raleway', sans-serif;
 
 }
 .book{
-	
+
 	border-radius: 6px;
 
 }
 </style>
 
 </head>
-
-<header>
-<a style='float:right;padding-top:20px;' href='/logout' class='btn'> LOGOUT</a>
-</header>
-<div>
-<div class='col-md-10 '>
+<div class="row">
+<div class='col-md-9'>
 <h1 style='display:inline;'>Hello <%= name%>,</h1><br>
 <h1 style='display:inline;'>Points:<%= points%></h1>
 
 </div>
 
-<div class='col-md-2'>
-<a href='/ask/<%= name %>' style='margin-top:20px;' class='btn btn-danger'>Ask for Books</a>
+<div class='col-md-3'>
+<a href='/ask/<%=username %>' style='margin-top:20px;' class='btn btn-danger'>ASK FOR BOOKS</a>
+
+<a href='/logout' style='margin-top:20px;' class='btn btn-danger'>LOGOUT</a>
 </div>
 </div>
-<div>
+<div class='row'>
+<div class='col-md-9'>
+
 <% for(var i=0;i<bookrequest.length;i++){%>
 		<div class="book col-md-6">
 		<h3><%= bookrequest[i].bookName %> </h3>
 		<img  style='float:left;display:block;padding-bottom:5px;' src='<%= bookrequest[i].bookicon %>'>
 		<p><%= bookrequest[i].bookDesc %></p>
 		<span style='color:red;'>Request by <%= bookrequest[i].userId%></span><br>
-		
+
 		<a class='btn btn-primary' href='/book/<%= bookrequest[i]._id%>/<%= id%>/'  id='book<%= i%>'>Trade</a>
 		</div>
 <%}%>
 </div>
-
-
-
-
-
+<div class='col-md-3'>
+<h3><td>Requested Books Status</h3>
+<table>
+<tr><th>Book Title</th><th>status</th>
+<% for(var i=0;i<status.length;i++){%>
+<tr><td><%=status[i].bookName%></td><td><%=status[i].status%></td>
+</tr>
+<%}%>
+</table>
+</div>
+</div>
