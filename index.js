@@ -11,7 +11,7 @@ const trade=require('./model/trademodel');
 const book1=require('./routes/book');
 
 //const booksget=require('./routes/getbooks');
-const url="mongodb://arjun:arjun@ds263988.mlab.com:63988/confusion";
+const url="mongodb://db:27017/confusion";
 mongoose.connect(url,(err,result)=>{
 if(err)
 	console.log(err);
@@ -19,20 +19,18 @@ else
 console.log("connected to mongodb server");
 });
 const app=express();
-app.disable('etag');
 app.set('views','./views');
 app.set('view engine','ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
-
 app.use(morgan('dev'));
 app.use(session({
 	name:'session-id',
 	secret:'0123345',
 	saveUninitialized: false,
- resave: false,
+ resave: false
 }));
-app.use(express.static(__dirname+'/public'));
+app.use(express.static(__dirname+'/public',{"etag":false}));
 
 
 app.get('/signup',function(req,res,next){
@@ -127,6 +125,7 @@ else {
 
 });
 
+
 app.get('/logout',function(req,res,next){
 req.session.user=undefined;
 res.redirect('/login');
@@ -140,6 +139,6 @@ app.use((err,req,res,next)=>{
 	res.redirect('/login');
 });
 const server=http.createServer(app);
-server.listen(3000,'localhost',()=>{
+server.listen(3000,()=>{
 console.log("connected to localhost: 3000");
 });

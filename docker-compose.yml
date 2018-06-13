@@ -1,0 +1,13 @@
+version: '3'
+services:
+  db:
+    image: mongo
+
+
+  node:
+    image:
+      book
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
