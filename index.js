@@ -11,7 +11,9 @@ const trade=require('./model/trademodel');
 const book1=require('./routes/book');
 
 //const booksget=require('./routes/getbooks');
-const url="mongodb://db:27017/confusion";
+const url="mongodb://localhost:27017/booktrading";
+
+
 mongoose.connect(url,(err,result)=>{
 if(err)
 	console.log(err);
@@ -24,6 +26,9 @@ app.set('view engine','ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(morgan('dev'));
+
+
+//using sessions
 app.use(session({
 	name:'session-id',
 	secret:'0123345',
@@ -49,6 +54,13 @@ app.post('/register',function(req,res,next){
 
 	});
 });
+app.post('/review',(req,res,next)=>{
+
+});
+
+
+
+
 app.post('/dashboard',function(req,res,next){
 Auth.find({"username":req.body.username,"password":req.body.password},(err,result)=>{
 if(result.length==1 ){
@@ -59,6 +71,7 @@ else
 res.redirect('/login');
 });
 });
+
 
 app.get('/book/:bookid/:userid',(req,res,next)=>{
 books.find({_id:req.params.bookid},(err,result)=>{
@@ -98,14 +111,15 @@ Auth.find({username:req.session.user},(err,result)=>{
 	// }
 books.find({$and:[{userId:{$ne:result[0]._id}},{status:{$ne:"traded"}}]},(err,bookreq)=>{
 books.find({userId:result[0]._id},function(err,status){
-console.log(bookreq);
+console.log(status);
 res.render('Dashboard',{
 	"username":result[0].username,
 	"name":result[0].name,
 	"id":result[0]._id,
 	"points":result[0].points,
 	"bookrequest":bookreq,
-	"status":status
+	"status":status,
+
 
 });
 

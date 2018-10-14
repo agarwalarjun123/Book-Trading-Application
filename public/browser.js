@@ -26,6 +26,9 @@ var content=$("<p></p>").text(data.items[i].volumeInfo.description);
 var title=$("<h2></h2>").text(data.items[i].volumeInfo.title);
 if(data.items[i].volumeInfo.authors)
 var author=$("<h6></h6>").text(data.items[i].volumeInfo.authors[0]);
+var rating=data.items[i].volumeInfo.averageRating;
+var rating=$("<h6></h6>").text(rating);
+console.log(rating);
 var im=document.createElement("img");
 if(data.items[i].volumeInfo.imageLinks){
 im.src=data.items[i].volumeInfo.imageLinks.smallThumbnail;
@@ -34,7 +37,7 @@ im.style.margin="auto";
 }
 $("#s"+i).append(title);
 $("#s"+i).append(author);
-
+$("#s"+i).append(rating);
 $("#s"+i).append(im);
 $("#s"+i).append(content);
 $("#s"+i).append(bt);

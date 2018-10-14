@@ -69,7 +69,9 @@ font-family: 'Raleway', sans-serif;
 <table>
 <tr><th>Book Title</th><th>status</th>
 <% for(var i=0;i<status.length;i++){%>
+
 <tr><td><%=status[i].bookName%></td><td><%=status[i].status%></td>
+<img  src='<%=status[i].bookicon%>'>
 </tr>
 <%}%>
 </table>
